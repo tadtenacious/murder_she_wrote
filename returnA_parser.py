@@ -1581,7 +1581,7 @@ def main():
              if i.endswith('.DAT')]
     print(f'Reading file {files[0]}')
     df = pd.read_fwf(files[0], headers=None, encoding='latin-1', widths=widths,
-                     names=names, skip)
+                     names=names)
     df.drop(df.index.max()) #EOF character \x1a is causing an almost all nan row
     print(f'>>>Read {files[0]} into dataframe')
     total_rows = df.shape[0]
