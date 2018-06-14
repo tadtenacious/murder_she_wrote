@@ -1581,7 +1581,8 @@ def main():
              if i.endswith('.DAT')]
     print(f'Reading file {files[0]}')
     df = pd.read_fwf(files[0], headers=None, encoding='latin-1', widths=widths,
-                     names=names)
+                     names=names, skip)
+    df.drop(df.index.max()) #EOF character \x1a is causing an almost all nan row
     print(f'>>>Read {files[0]} into dataframe')
     total_rows = df.shape[0]
     df.to_csv('ReturnA_Master.csv',index=False)
@@ -1591,10 +1592,11 @@ def main():
             print(f'Reading file {file}')
             df = pd.read_fwf(file, headers=None, encoding='latin-1',
                              widths=widths)
+            df.drop(df.index.max())
             print(f'>>>Read {file} into dataframe')
             total_rows += df.shape[0]
             df.to_csv('ReturnA_Master.csv',mode='a',index=False,header=None)
-            print(f'>>>Appended {file} to csv. {total_rows:,} rows')
+            print(f'>>>Appended {file} to csv. Total rows: {total_rows:,}')
     except Exception as e:
         print(f'Error processing {file}\n{e}')
     print('\n<<<Completed processing>>>')
