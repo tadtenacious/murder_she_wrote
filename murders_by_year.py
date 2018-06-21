@@ -2,7 +2,7 @@ import pandas as pd
 
 from bokeh.plotting import figure
 from bokeh.layouts import row, widgetbox
-from bokeh.models import Range1d
+from bokeh.models import ColumnDataSource, Div, HoverTool, Range1d
 from bokeh.models.formatters import NumeralTickFormatter
 from bokeh.models.widgets import Select
 from bokeh.io import output_file
@@ -18,13 +18,26 @@ def select_state():
     return selected
 
 def create_figure():
-    p = figure(plot_width=600, plot_height=400)
     use_df = select_state()
-    agg = use_df.groupby('YEAR').sum()
+    agg = use_df.groupby('YEAR',as_index=False).sum()
+    agg['Clearance_Rate'] = agg['CLR'] / agg['MRD']
+    source = ColumnDataSource(agg)
+    hover = HoverTool(
+        tooltips = [
+        ('Year', '@YEAR'),
+        ('Total Murders','@MRD{0,0}'),
+        ('Solved Murders','@CLR{0,0}'),
+        ('Clearance Rate','@Clearance_Rate{0%}')
+        ]
+    )
+    tools=[hover]
+    p = figure(plot_width=600, plot_height=400,tools=tools)
+    p.xaxis.axis_label = 'Year'
+    p.yaxis.axis_label = 'Murders'
     p.y_range=Range1d(0,agg['MRD'].max() * 1.05)
     p.yaxis[0].formatter = NumeralTickFormatter(format='0,0')
-    p.line(agg.index,agg['MRD'], line_width=3,)
-    p.line(agg.index,agg['CLR'], line_width=3, color='orange')
+    p.line('YEAR','MRD',source=source, line_width=3,)
+    p.line('YEAR','CLR',source=source, line_width=3, color='orange')
     p.title.text = '{} Murders by Year'.format(states.value)
 
     return p
