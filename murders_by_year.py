@@ -5,7 +5,6 @@ from bokeh.layouts import row, widgetbox
 from bokeh.models import ColumnDataSource, Div, HoverTool, Range1d
 from bokeh.models.formatters import NumeralTickFormatter
 from bokeh.models.widgets import Select
-from bokeh.io import output_file
 from bokeh.io import curdoc
 
 df = pd.read_csv('UCR65_16.csv')
