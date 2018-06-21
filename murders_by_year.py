@@ -1,7 +1,7 @@
 import pandas as pd
 
 from bokeh.plotting import figure
-from bokeh.layouts import row, widgetbox
+from bokeh.layouts import layout, row, widgetbox
 from bokeh.models import ColumnDataSource, Div, HoverTool, Range1d
 from bokeh.models.formatters import NumeralTickFormatter
 from bokeh.models.widgets import Select
@@ -42,15 +42,21 @@ def create_figure():
     return p
 
 def update(attr, old, new):
-    layout.children[1] = create_figure()
+    lay_out.children[0].children[1] = create_figure()
 
 states = Select(title='State', value='All',
                options= ['All']+df.State.unique().tolist())
 states.on_change('value', update)
 
-inputs = widgetbox(states, width=200)
-layout = row( inputs, create_figure())
+with open('description.html','r') as f:
+    desc = Div(text=f.read(),width=1000)
 
-# update()
-curdoc().add_root(layout)
+inputs = widgetbox(states, width=200)
+lay_out = layout([
+    [inputs, create_figure()],
+    [desc,]
+])
+
+
+curdoc().add_root(lay_out)
 curdoc().title = "Murders by Year"
