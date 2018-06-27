@@ -15,22 +15,22 @@ def add_all(column):
 states = Select(title='State', value='All', options = add_all(df.fstate))
 weapons = Select(title='Weapon', value='All', options = add_all(df.Weapon))
 situations = Select(title='Situation', value='All',
- options= add_all(df.Situation))
+              options= add_all(df.Situation))
 circumstances = Select(title='Circumstance', value='All',
- options=add_all(df.Circumstance))
+                options=add_all(df.Circumstance))
 sources = Select(title='Source', value='All', options=['All','FBI','MAP'])
 homicides = Select(title='Homicide', value='All', options=add_all(df.Homicide))
 sexes = Select(title='Victim Sex', value='All', options=add_all(df.VicSex))
 races = Select(title='Victim Race', value='All', options=add_all(df.VicRace))
 controls = [
-            states,weapons, situations, circumstances, sources, homicides,
+            states, weapons, situations, circumstances, sources, homicides,
             sexes, races,
 ]
 inputs = widgetbox(*controls, sizing_mode='fixed', width=350)
 
 def select_data():
-    selected = df[['Year','Solved','fstate','Weapon','Situation','Circumstance','Source',
-                   'Homicide','VicSex','VicRace','ID']]
+    selected = df[['Year','Solved','fstate','Weapon','Situation','Circumstance',
+                'Source','Homicide','VicSex','VicRace','ID']]
     state = states.value
     weapon = weapons.value
     situation = situations.value
@@ -42,7 +42,7 @@ def select_data():
     if state != 'All':
         selected = selected[selected['fstate']==state]
     if weapon != 'All':
-        selected[selected['Weapon'].astype(str)==weapon]
+        selected = selected[selected['Weapon']==weapon]
     if situation != 'All':
         selected = selected[selected['Situation']==situation]
     if circumstance != 'All':
@@ -58,7 +58,8 @@ def select_data():
     return selected
 
 def pivot_data(selected):
-    pvt = pd.pivot_table(selected[['Year','ID','Solved']],values='ID',index='Year',columns='Solved',aggfunc='count').reset_index()
+    pvt = pd.pivot_table(selected[['Year','ID','Solved']],values='ID',
+          index='Year',columns='Solved',aggfunc='count').reset_index()
     pvt['MRD'] = pvt['No'] + pvt['Yes']
     pvt['Clearance_Rate'] = pvt['Yes'] / pvt['MRD']
     return pvt
@@ -79,7 +80,7 @@ def create_figure():
         ]
     )
     tools=[hover]
-    p = figure(plot_width=600, plot_height=400,tools=tools) # Create figure
+    p = figure(plot_width=700, plot_height=500,tools=tools) # Create figure
     p.xaxis.axis_label = 'Year'
     p.yaxis.axis_label = 'Murders'
     # Set the range for the yaxis dynamically. Requires bokeh Rand1d object
