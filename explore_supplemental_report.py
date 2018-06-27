@@ -26,7 +26,7 @@ controls = [
             states,weapons, situations, circumstances, sources, homicides,
             sexes, races,
 ]
-inputs = widgetbox(*controls, sizing_mode='fixed', )
+inputs = widgetbox(*controls, sizing_mode='fixed', width=350)
 
 def select_data():
     selected = df[['Year','Solved','fstate','Weapon','Situation','Circumstance','Source',
@@ -42,7 +42,7 @@ def select_data():
     if state != 'All':
         selected = selected[selected['fstate']==state]
     if weapon != 'All':
-        selected[selected['Weapon']==weapon]
+        selected[selected['Weapon'].astype(str)==weapon]
     if situation != 'All':
         selected = selected[selected['Situation']==situation]
     if circumstance != 'All':
