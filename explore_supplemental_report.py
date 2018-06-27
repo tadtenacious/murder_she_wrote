@@ -2,7 +2,7 @@ import pandas as pd
 
 from bokeh.plotting import figure
 from bokeh.layouts import layout, row, widgetbox
-from bokeh.models import ColumnDataSource, Div, HoverTool, Range1d
+from bokeh.models import ColumnDataSource, Div, HoverTool, Range1d, ResetTool
 from bokeh.models.formatters import NumeralTickFormatter
 from bokeh.models.widgets import Select
 from bokeh.io import curdoc
@@ -79,7 +79,7 @@ def create_figure():
         ('Clearance Rate','@Clearance_Rate{0%}')
         ]
     )
-    tools=[hover]
+    tools=[hover, ResetTool()]
     p = figure(plot_width=700, plot_height=500,tools=tools) # Create figure
     p.xaxis.axis_label = 'Year'
     p.yaxis.axis_label = 'Murders'
