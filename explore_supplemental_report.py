@@ -27,12 +27,12 @@ controls = [
             sexes, races,
 ]
 
-refresh_button = Button(label='Clear Filters', button_type='primary')
-
 def refresh():
     for i in controls:
         i.value = 'All'
 
+refresh_button = Button(label='Clear Filters', button_type='primary')
+refresh_button.on_click(refresh)
 
 inputs = widgetbox(refresh_button,*controls, sizing_mode='fixed', width=350)
 
