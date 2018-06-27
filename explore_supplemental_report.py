@@ -89,7 +89,7 @@ def create_figure():
         ]
     )
     tools=[hover, ResetTool()]
-    p = figure(plot_width=700, plot_height=500,tools=tools) # Create figure
+    p = figure(plot_width=900, plot_height=550,tools=tools) # Create figure
     p.xaxis.axis_label = 'Year'
     p.yaxis.axis_label = 'Murders'
     # Set the range for the yaxis dynamically. Requires bokeh Rand1d object
