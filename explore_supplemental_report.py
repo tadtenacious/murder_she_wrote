@@ -4,7 +4,7 @@ from bokeh.plotting import figure
 from bokeh.layouts import layout, row, widgetbox
 from bokeh.models import ColumnDataSource, Div, HoverTool, Range1d, ResetTool
 from bokeh.models.formatters import NumeralTickFormatter
-from bokeh.models.widgets import Select
+from bokeh.models.widgets import Select, Button
 from bokeh.io import curdoc
 
 df = pd.read_csv('SHR76_16.csv')
@@ -26,7 +26,15 @@ controls = [
             states, weapons, situations, circumstances, sources, homicides,
             sexes, races,
 ]
-inputs = widgetbox(*controls, sizing_mode='fixed', width=350)
+
+refresh_button = Button(label='Clear Filters', button_type='primary')
+
+def refresh():
+    for i in controls:
+        i.value = 'All'
+
+
+inputs = widgetbox(refresh_button,*controls, sizing_mode='fixed', width=350)
 
 def select_data():
     selected = df[['Year','Solved','fstate','Weapon','Situation','Circumstance',
@@ -60,7 +68,8 @@ def select_data():
 def pivot_data(selected):
     pvt = pd.pivot_table(selected[['Year','ID','Solved']],values='ID',
           index='Year',columns='Solved',aggfunc='count').reset_index()
-    pvt['MRD'] = pvt['No'].fillna(0) + pvt['Yes'].fillna(0)
+    pvt.fillna(0,inplace=True)
+    pvt['MRD'] = pvt['No'] + pvt['Yes']
     pvt['Clearance_Rate'] = pvt['Yes'] / pvt['MRD']
     return pvt
 
