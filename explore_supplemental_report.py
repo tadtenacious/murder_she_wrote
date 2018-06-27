@@ -60,7 +60,7 @@ def select_data():
 def pivot_data(selected):
     pvt = pd.pivot_table(selected[['Year','ID','Solved']],values='ID',
           index='Year',columns='Solved',aggfunc='count').reset_index()
-    pvt['MRD'] = pvt['No'] + pvt['Yes']
+    pvt['MRD'] = pvt['No'].fillna(0) + pvt['Yes'].fillna(0)
     pvt['Clearance_Rate'] = pvt['Yes'] / pvt['MRD']
     return pvt
 
