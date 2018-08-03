@@ -43,3 +43,11 @@ gun = {
     '4' : 'Used (Type uknown)',
     'Null' : 'Unknown'
 }
+
+victim_sex = {
+    'Null' : 'Unknown',
+    '0' : 'Unkonwn',
+    '1' : 'Men', #Note NOT male/female
+    '2' : 'Women',
+    '3' : 'Both'
+}
