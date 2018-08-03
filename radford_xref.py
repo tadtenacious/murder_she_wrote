@@ -21,3 +21,9 @@ kill_method_dict = {
     '18' : 'Vehicle hit',
     '19' : 'Thrown from cliff'
 }
+
+killed_with_hands = {
+    '0': 'No',
+    '1': 'Yes',
+    'Null': 'Unknown'
+}
