@@ -34,3 +34,12 @@ weapons = {
     '3': 'Brought with', # I don't know why they skipped 2
     'Null': 'Unknown'
 }
+
+gun = {
+    '0' : 'None',
+    '1' : 'Handgun',
+    '2' : 'Rifle',
+    '3' : 'Shotgun',
+    '4' : 'Used (Type uknown)',
+    'Null' : 'Unknown'
+}
