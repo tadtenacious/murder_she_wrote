@@ -23,7 +23,14 @@ kill_method_dict = {
 }
 
 killed_with_hands = {
-    '0': 'No',
-    '1': 'Yes',
+    '0' : 'No',
+    '1' : 'Yes',
+    'Null' : 'Unknown'
+}
+
+weapons = {
+    '0' : 'None',
+    '1' : 'Found at scene',
+    '3': 'Brought with', # I don't know why they skipped 2
     'Null': 'Unknown'
 }
