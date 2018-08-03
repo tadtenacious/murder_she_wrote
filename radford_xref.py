@@ -51,3 +51,14 @@ victim_sex = {
     '2' : 'Women',
     '3' : 'Both'
 }
+
+victim_race = {
+    '1' : 'White',
+    '2' : 'Black',
+    '3' : 'Hisp',
+    '4' : 'Asian',
+    '5' : 'Native American',
+    '6' : 'Mixed',
+    '7' : 'Other',
+    'Null' : 'Unknown'
+}
