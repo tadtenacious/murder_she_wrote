@@ -1,4 +1,5 @@
 kill_method_dict = {
+    'Null': 'Unknown',
     '0'  : 'Unknown',
     '1'  : 'Blunt force',
     '2'  : 'Gunshot',
