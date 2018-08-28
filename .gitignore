@@ -11,3 +11,4 @@ scrape_radford.py
 geckodriver.log
 radford_data
 get_radford_files.py
+radscraper
